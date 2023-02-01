@@ -17,7 +17,6 @@ export default {
             <div class="basis-4/5">All journals</div>
             <div>
                 <button class="cursor-pointer rounded border-white border-2 px-2">New</button>
-                <!-- <button class="w-20 h-8 hover:bg-sky-200 cursor-pointer">New</button> -->
             </div>
         </div>
         <article class="p-3 m-2 flex flex-col " v-for="journal in journals"
@@ -28,7 +27,7 @@ export default {
                 </div>
                 <div>
                     <span class="material-symbols-outlined w-8 h-8 hover:bg-sky-200 cursor-pointer">
-                        more_vert
+                        edit
                     </span>
                 </div>
             </div>
