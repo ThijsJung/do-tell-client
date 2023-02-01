@@ -5,11 +5,11 @@ export default {
             journal:
                 { id: 1, name: "Espanol", description: "Un sitio done dejar todos mis pensamientos espanoles." },
             entries: [
-                { id: 1, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 2, type: "audio", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 3, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 4, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 5, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
+                { id: 1, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 2, type: "audio", createdAt: "01/01/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 3, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 4, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 5, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
             ],
             showEdit: false,
             showNew: false
@@ -21,7 +21,7 @@ export default {
 <template>
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
-            <div class="basis-3/5">
+            <div class="basis-3/4">
                 <NuxtLink class="underline" to="/">All journals</NuxtLink> > {{ journal.name }}
             </div>
             <div>
@@ -40,20 +40,14 @@ export default {
         </div>
 
         <article class="p-1 m-1 flex flex-col" v-for="entry in entries">
-            <div class="flex">
-                <div class="text-2xl grow">
+            <div class="flex justify-between">
+                <div class="text-2xl">
                     <span v-if="entry.type=='audio'" class="material-symbols-outlined align-middle">mic</span>
                     <span v-if="entry.type=='text'" class="material-symbols-outlined align-middle">draw</span>
                     {{ entry.title }}
                 </div>
-                <div v-if="showEdit" class="flex-col">
-                    <div>Edit</div>
-                    <div>Delete</div>
-                </div>
-                <div @click="showEdit = !showEdit">
-                    <span class="material-symbols-outlined w-8 h-8 hover:bg-sky-200 cursor-pointer">
-                        more_vert
-                    </span>
+                <div class="text-sm self-end">
+                    {{ entry.createdAt }}
                 </div>
             </div>
             <div>
