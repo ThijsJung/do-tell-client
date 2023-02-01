@@ -13,7 +13,7 @@ export default {
 
 <template>
   <div>
-    <header class="text-4xl p-3 text-sky-400">
+    <header class="text-4xl p-2 text-sky-400">
       Do Tell
     </header>
     <NuxtPage />
