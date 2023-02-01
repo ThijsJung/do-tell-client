@@ -12,6 +12,7 @@ export default defineNuxtConfig({
             title: 'Do Tell',
             htmlAttrs: {
                 lang: 'en',
+                class: 'bg-black text-white'
             },
             meta: [
                 { charset: 'utf-8' },

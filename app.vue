@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-black text-white">
+  <div>
     <header class="text-4xl p-3">
       Do Tell
     </header>
