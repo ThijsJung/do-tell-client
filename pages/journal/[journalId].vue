@@ -5,11 +5,11 @@ export default {
             journal:
                 { id: 1, name: "Espanol", description: "Un sitio done dejar todos mis pensamientos espanoles." },
             entries: [
-                { id: 1, title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 2, title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 3, title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 4, title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                { id: 5, title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
+                { id: 1, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 2, type: "audio", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 3, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 4, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+                { id: 5, type: "text", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
             ],
             showEdit: false,
             showNew: false
@@ -22,7 +22,7 @@ export default {
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
             <div class="basis-3/4">
-                <NuxtLink to="/">All journals</NuxtLink> > {{ journal.name }}
+                <NuxtLink class="underline" to="/">All journals</NuxtLink> > {{ journal.name }}
             </div>
             <div>
                 <button class="cursor-pointer rounded border-white border-2 px-1" @click="showNew = !showNew">
@@ -41,7 +41,9 @@ export default {
 
         <article class="p-3 m-2 flex flex-col " v-for="entry in entries">
             <div class="flex">
-                <div class="text-xl grow">
+                <div class="text-2xl grow">
+                    <span v-if="entry.type=='audio'" class="material-symbols-outlined align-middle pr-1">mic</span>
+                    <span v-if="entry.type=='text'" class="material-symbols-outlined align-middle pr-1">draw</span>
                     {{ entry.title }}
                 </div>
                 <div v-if="showEdit" class="flex-col">
