@@ -16,7 +16,9 @@ export default {
         <div class="flex flex-row">
             <div class="basis-4/5">All journals</div>
             <div>
-                <button class="cursor-pointer rounded border-white border-2 px-2">New</button>
+                <NuxtLink to="/new-journal">
+                    <button class="cursor-pointer rounded border-white border-2 px-2">New</button>
+                </NuxtLink>
             </div>
         </div>
         <article class="p-3 m-2 flex flex-col " v-for="journal in journals">
