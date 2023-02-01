@@ -19,19 +19,18 @@ export default {
                 <button class="cursor-pointer rounded border-white border-2 px-2">New</button>
             </div>
         </div>
-        <article class="p-3 m-2 flex flex-col " v-for="journal in journals"
-            @click="$router.push(`/journal/${journal.id}`)">
+        <article class="p-3 m-2 flex flex-col " v-for="journal in journals">
             <div class="flex">
-                <div class="text-xl grow">
+                <div class="text-xl grow" @click="$router.push(`/journal/${journal.id}`)">
                     {{ journal.name }}
                 </div>
-                <div>
+                <NuxtLink to="/new-journal">
                     <span class="material-symbols-outlined w-8 h-8 hover:bg-sky-200 cursor-pointer">
                         edit
                     </span>
-                </div>
+                </NuxtLink>
             </div>
-            <div>
+            <div @click="$router.push(`/journal/${journal.id}`)">
                 {{ journal.description }}
             </div>
         </article>
