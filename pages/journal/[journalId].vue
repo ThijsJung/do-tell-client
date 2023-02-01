@@ -21,13 +21,13 @@ export default {
 <template>
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
-            <div class="basis-3/4">
+            <div class="basis-3/5">
                 <NuxtLink class="underline" to="/">All journals</NuxtLink> > {{ journal.name }}
             </div>
             <div>
-                <button class="cursor-pointer rounded border-white border-2 px-1" @click="showNew = !showNew">
+                <button class="cursor-pointer rounded border-white border-2 pl-2">
                     New
-                    <span class="material-symbols-outlined align-middle">
+                    <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1" @click="showNew = !showNew">
                         expand_more
                     </span>
                 </button>
@@ -39,7 +39,7 @@ export default {
             </div>
         </div>
 
-        <article class="p-3 m-2 flex flex-col " v-for="entry in entries">
+        <article class="p-1 m-1 flex flex-col" v-for="entry in entries">
             <div class="flex">
                 <div class="text-2xl grow">
                     <span v-if="entry.type=='audio'" class="material-symbols-outlined align-middle pr-1">mic</span>
