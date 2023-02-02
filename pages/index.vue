@@ -21,7 +21,7 @@ export default {
                 </NuxtLink>
             </div>
         </div>
-        <article class="p-3 m-2 flex flex-col " v-for="journal in journals">
+        <article class="p-1 m-1 flex flex-col " v-for="journal in journals">
             <div class="flex">
                 <div class="text-xl grow" @click="$router.push(`/journal/${journal.id}`)">
                     {{ journal.name }}
