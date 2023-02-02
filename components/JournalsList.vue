@@ -35,6 +35,12 @@ export default {
                 this.lastJournalId++
                 id = this.lastJournalId
             }
+            if (name === "" ){
+                name = "Untitled journal"
+            }
+            if (description === ""){
+                description = "Short description..."
+            }
             this.allJournals[id] = {
                 id: id,
                 name: name,
