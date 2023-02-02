@@ -35,7 +35,7 @@ export default {
                     </span>
                 </button>
                 <div v-if="showNew" class="flex-col">
-                    <div><span class="material-symbols-outlined align-middle pr-2">draw</span>Text</div>
+                    <div><NuxtLink to="/journal/entry"><span class="material-symbols-outlined align-middle pr-2">draw</span>Text</NuxtLink></div>
                     <div><span class="material-symbols-outlined align-middle pr-2">mic</span>Audio</div>
                     <div><span class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
                 </div>
