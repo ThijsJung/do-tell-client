@@ -44,7 +44,7 @@ export default {
 
         <article class="p-1 m-1 flex flex-col" v-for="entry in entries">
             <div class="flex justify-between">
-                <div class="text-2xl">
+                <div class="text-xl">
                     <span v-if="entry.type == 'audio'" class="material-symbols-outlined align-middle">mic</span>
                     <span v-if="entry.type == 'text'" class="material-symbols-outlined align-middle">draw</span>
                     {{ entry.title }}
