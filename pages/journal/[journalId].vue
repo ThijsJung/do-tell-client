@@ -54,6 +54,5 @@ export default {
                 {{ entry.content }}
             </div>
         </article>
-        <p>{{ $route.params }}</p>
     </div>
 </template>
