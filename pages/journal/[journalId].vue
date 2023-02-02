@@ -45,5 +45,7 @@ export default {
         </div>
 
         <NewEntry v-if="showNewEntry" @cancel-edit-entry="showNewEntry = false"></NewEntry>
+        
+        <EntrySummary v-else v-for="entry in entries" :entry="entry"></EntrySummary>
     </div>
 </template>
