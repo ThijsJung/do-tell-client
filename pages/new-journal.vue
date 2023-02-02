@@ -10,14 +10,18 @@ export default {
 </script>
 
 <template>
-    <div class="flex flex-col text-sky-400">
-        <input type="text" placeholder="Untitled journal">
-        <input type="textarea" placeholder="Short description">
-        <div class="flex justify-between p-2">
+    <div class="flex flex-col p-1 m-1">
+        <div >
+            <input class="w-full mb-1 border-none focus:outline-none bg-black text-white" type="text" placeholder="Untitled journal" autofocus>
+        </div>
+        <div>
+            <textarea class="w-full h-40 border-none bg-black text-white" placeholder="Short description..."></textarea>
+        </div>
+        <div class="flex justify-between pt-2">
             <NuxtLink to="/">
-                <button class="cursor-pointer rounded border-white border-2 px-2">Cancel</button>
+                <button class="cursor-pointer rounded border-white border-2 py-1 px-2">Cancel</button>
             </NuxtLink>
-            <button class="cursor-pointer rounded border-white border-2 px-2">Save</button>
+            <button class="cursor-pointer rounded border-white border-2 py-1 px-2">Save</button>
         </div>
     </div>
 </template>
