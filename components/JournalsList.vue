@@ -40,6 +40,10 @@ export default {
             }
             this.editJournal = false
         },
+        deleteJournal(id: number){
+            delete this.allJournals[id]
+            this.editJournal = false
+        },
         cancelEditJournal() {
             this.editJournal = false
         }
@@ -56,7 +60,7 @@ export default {
             </div>
         </div>
         <NewJournal v-if="editJournal" :journal-name="journalName" :journal-description="journalDescription" :journal-id="journalId"
-            @cancel-edit-journal="cancelEditJournal" @save-journal="saveJournal">
+            @cancel-edit-journal="cancelEditJournal" @save-journal="saveJournal" @delete-journal="deleteJournal">
         </NewJournal>
         <article v-else class="p-1 m-1 flex flex-col " v-for="journal in allJournals" :key="journal.id">
             <div class="flex">

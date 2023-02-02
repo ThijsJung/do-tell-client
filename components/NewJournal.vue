@@ -29,7 +29,9 @@ export default {
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
                 @click="$emit('cancelEditJournal')">Cancel</button>
-            <button class="cursor-pointer rounded border-sky-400 text-sky-400 border-2 py-1 px-2"
+            <button class="cursor-pointer rounded border-red-600 border-2 py-1 px-2"
+                @click="$emit('deleteJournal', id)">Delete</button>
+            <button class="cursor-pointer rounded border-sky-400 border-2 py-1 px-2"
                 @click="$emit('saveJournal', name, description, id)">Save</button>
         </div>
     </div>
