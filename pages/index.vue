@@ -13,28 +13,6 @@ export default {
 
 <template>
     <div class="flex flex-col px-3 py-2">
-        <div class="flex flex-row">
-            <div class="basis-4/5">All journals</div>
-            <div>
-                <NuxtLink to="/new-journal">
-                    <button class="cursor-pointer rounded border-white border-2 px-2">New</button>
-                </NuxtLink>
-            </div>
-        </div>
-        <article class="p-1 m-1 flex flex-col " v-for="journal in journals">
-            <div class="flex">
-                <div class="text-xl grow" @click="$router.push(`/journal/${journal.id}`)">
-                    {{ journal.name }}
-                </div>
-                <NuxtLink to="/new-journal">
-                    <span class="material-symbols-outlined w-8 h-8 hover:bg-sky-200 cursor-pointer">
-                        edit
-                    </span>
-                </NuxtLink>
-            </div>
-            <div @click="$router.push(`/journal/${journal.id}`)">
-                {{ journal.description }}
-            </div>
-        </article>
+        <JournalsList :journals="journals"></JournalsList>
     </div>
 </template>
