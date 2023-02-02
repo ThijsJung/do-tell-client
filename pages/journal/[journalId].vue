@@ -21,13 +21,13 @@ export default {
 <template>
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
-            <div class="basis-3/4">
+            <div class="grow">
                 <NuxtLink class="underline" to="/">All journals</NuxtLink> > {{ journal.name }}
             </div>
             <div>
                 <button class="cursor-pointer rounded border-white border-2 pl-2">
                     <NuxtLink to="/journal/entry">
-                        New
+                       <span class="pr-2">New</span><span class="material-symbols-outlined align-middle pr-1">draw</span>
                     </NuxtLink>
                     <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1"
                         @click="showNew = !showNew">
