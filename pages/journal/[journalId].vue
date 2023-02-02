@@ -26,8 +26,11 @@ export default {
             </div>
             <div>
                 <button class="cursor-pointer rounded border-white border-2 pl-2">
-                    New
-                    <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1" @click="showNew = !showNew">
+                    <NuxtLink to="/journal/entry">
+                        New
+                    </NuxtLink>
+                    <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1"
+                        @click="showNew = !showNew">
                         expand_more
                     </span>
                 </button>
@@ -42,8 +45,8 @@ export default {
         <article class="p-1 m-1 flex flex-col" v-for="entry in entries">
             <div class="flex justify-between">
                 <div class="text-2xl">
-                    <span v-if="entry.type=='audio'" class="material-symbols-outlined align-middle">mic</span>
-                    <span v-if="entry.type=='text'" class="material-symbols-outlined align-middle">draw</span>
+                    <span v-if="entry.type == 'audio'" class="material-symbols-outlined align-middle">mic</span>
+                    <span v-if="entry.type == 'text'" class="material-symbols-outlined align-middle">draw</span>
                     {{ entry.title }}
                 </div>
                 <div class="text-sm self-end">
