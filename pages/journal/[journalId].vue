@@ -1,19 +1,6 @@
 <script lang="ts">
 import { useJournalStore } from '@/stores/journals'
-
-const allEntries = {
-    "J-8cae": [
-        { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-        { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-        { id: "E-eee", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-        { id: "E-fff", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-        { id: "E-ggg", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
-    ],
-    "J-6308": [
-        { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "The maze", content: "I'm walking through a maze. It's green and lush I'm certain I'm getting closer to the center. Somewhere in the distance I hear a bear roar." },
-        { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Murder baby", content: "It's coming for me, I know it!" }
-    ]
-}
+import { allEntries as mockEntries } from '@/data/mockEntries'
 
 export default {
     setup() {
@@ -21,18 +8,17 @@ export default {
 
         return { store }
     },
-    created() {
+    beforeMount() {
         const journalId = this.$route.params.journalId
-        for (const entry of allEntries[journalId]) {
-            // console.log(entry, typeof entry)
+        for (const entry of mockEntries[journalId]) {
             this.store.addEntry(journalId, entry)
         }
         this.journalId = journalId
     },
     data() {
         return {
-            journalId: 'J-UnknownID',
-            journalName: 'Espanol',
+            journalId: '',
+            journalName: '',
             entries: [],
 
             showNewEntryOptions: false,
@@ -89,7 +75,8 @@ export default {
             </div>
         </div>
 
-        <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" @close-entry="closeEntry"></Entry>
+        <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" :journalId="journalId"
+            @close-entry="closeEntry"></Entry>
 
         <NewEntry v-else-if="activeComponentView === 'newEntry'" :new-entry-type="newEntryType"
             @cancel-edit-entry="cancelEditEntry">

@@ -1,11 +1,6 @@
 <script lang="ts">
 import { useJournalStore } from '@/stores/journals'
-
-
-const journals = [
-    { id: "J-8cae", name: "Espanol", description: "Un sitio donde dejar todos mis pensamientos espanoles." },
-    { id: "J-6308", name: "Dreams", description: "An overview of my subconsciousness, as presented to me during the night time." }
-]
+import { journals as mockJournals } from '@/data/mockJournals'
 
 export default {
     setup() {
@@ -14,7 +9,7 @@ export default {
         return { store }
     },
     created() {
-        for (const journal of journals){
+        for (const journal of mockJournals){
             this.store.addJournal(journal)
         }
     },
