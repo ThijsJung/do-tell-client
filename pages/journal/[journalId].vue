@@ -18,7 +18,6 @@ export default {
     data() {
         return {
             journalId: '',
-            journalName: '',
             entries: [],
 
             showNewEntryOptions: false,
@@ -27,6 +26,11 @@ export default {
 
             selectedEntryId: '',
             activeComponentView: 'summaries'  // Enum: ['summaries', 'newEntry', 'entry']
+        }
+    },
+    computed: {
+        summariesViewIsActive() {
+            return this.activeComponentView === 'summaries'
         }
     },
     methods: {
@@ -52,7 +56,9 @@ export default {
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
             <div class="grow">
-                <NuxtLink class="underline" to="/">All journals</NuxtLink> > {{ journalName }}
+                <NuxtLink class="underline" to="/">All journals</NuxtLink> > <span :class="{underline : !summariesViewIsActive}" @click="closeEntry">{{
+                    store.getJournalName(journalId)
+                }}</span>
             </div>
             <div>
                 <div class="cursor-pointer rounded border-white border-2 pl-2">
