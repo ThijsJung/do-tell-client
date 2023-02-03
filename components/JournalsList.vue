@@ -16,8 +16,8 @@ export default {
     data() {
         return {
             editJournal: false,
-            journalName: "",
-            journalDescription: "",
+            journalName: '',
+            journalDescription: '',
             journalId: "newJournalId",
             lastJournalId: 0 // To be deleted once the journals are sent to the API which returns an ID.
         }
