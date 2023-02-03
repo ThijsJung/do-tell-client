@@ -3,11 +3,7 @@ export default {
     props: {
         entry: Object,
     },
-    emits: ['updateJournal'],
-    // data() {
-    //     return {
-    //     }
-    // }
+    emits: ['selectEntry'],
     methods: {
         truncateContent(content: string) {
             let truncatedContent = content.slice(0, 80)
@@ -21,7 +17,7 @@ export default {
 </script>
 
 <template>
-    <article class="p-1 m-1 flex flex-col" @click="$router.push(`/journals/entries/${entry.id}`)">
+    <article class="p-1 m-1 flex flex-col" @click="$emit('selectEntry', entry.id)">
         <div class=" flex justify-between">
             <div class="text-xl">
                 <span v-if="entry.type == 'audio'" class="material-symbols-outlined align-middle">mic</span>
