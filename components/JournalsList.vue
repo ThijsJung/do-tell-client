@@ -1,7 +1,17 @@
 <script lang="ts">
+import { useJournalStore } from '@/stores/journals'
+
 export default {
+    setup() {
+        const store = useJournalStore()
+
+        return { store }
+    },
+    created() {
+        this.lastJournalId = Object.keys(this.store.getAllJournals).length
+    },
     props: {
-        journals: Array
+        journals: Object
     },
     data() {
         return {
@@ -9,16 +19,12 @@ export default {
             journalName: "",
             journalDescription: "",
             journalId: 0,
-            allJournals: {},
             lastJournalId: 0 // To be deleted once the journals are sent to the API which returns an ID.
         }
     },
-    created() {
-        this.lastJournalId = this.journals.length
-        this.allJournals = this.journals.reduce((obj, journal) => (obj[journal.id] = journal, obj), {})
-    },
     methods: {
         createJournal() {
+            // TODO: Shouldn't this be on the NewJournal component?
             this.journalName = ""
             this.journalDescription = ""
             this.journalId = 0
@@ -35,22 +41,22 @@ export default {
                 this.lastJournalId++
                 id = this.lastJournalId
             }
-            if (name === "" ){
+            if (name === "") {
                 name = "Untitled journal"
             }
-            if (description === ""){
+            if (description === "") {
                 description = "Short description..."
             }
-            this.allJournals[id] = {
+            const newJournal = {
                 id: id,
                 name: name,
                 description: description
             }
+            this.store.addJournal(newJournal)
             this.editJournal = false
         },
         deleteJournal(id: number) {
-            delete this.allJournals[id]
-            this.lastJournalId = this.journals.length
+            this.store.deleteJournal(id)
             this.editJournal = false
         },
         cancelEditJournal() {
@@ -72,7 +78,8 @@ export default {
             :journal-id="journalId" @cancel-edit-journal="cancelEditJournal" @save-journal="saveJournal"
             @delete-journal="deleteJournal">
         </NewJournal>
-        <Journal v-else v-for="journal in allJournals" :key="journal.id" :journal-name="journal.name"
-            :journal-description="journal.description" :journal-id="journal.id" @update-journal="updateJournal"></Journal>
+        <Journal v-else v-for="journal in journals" :key="journal.id" :journal-name="journal.name"
+            :journal-description="journal.description" :journal-id="journal.id" @update-journal="updateJournal">
+        </Journal>
     </div>
 </template>
