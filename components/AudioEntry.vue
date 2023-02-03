@@ -12,10 +12,10 @@ export default {
             <span v-if="entry.content.type == 'audio'" class="material-symbols-outlined align-middle">mic</span>
             {{ entry.title }}
         </div>
-        <div class="text-sm">{{ entry.createdAt }}</div>
-        <audio class="m-3 justify-center" src="https://s3.eu-west-1.amazonaws.com/hungarian.phrasebook/tty-diary/thijstest_1657477079.mp3" controls></audio>
+        <div class="text-sm my-1">{{ epochToDateString(entry.createdAt) }}</div>
+        <audio class="m-2 justify-center" src="https://s3.eu-west-1.amazonaws.com/hungarian.phrasebook/tty-diary/thijstest_1657477079.mp3" controls></audio>
         <div>
-            <p class="py-1" v-for="paragraph in entry.content.transcript.split('\n')">{{ paragraph }}</p>
+            <p v-if="'transcript' in entry.content" class="py-1" v-for="paragraph in entry.content.transcript.split('\n')">{{ paragraph }}</p>
         </div>
     </article>
 </template>
