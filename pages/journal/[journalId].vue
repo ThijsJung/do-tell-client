@@ -1,27 +1,40 @@
 <script lang="ts">
+import { useJournalStore } from '@/stores/journals'
+
+const allEntries = {
+    "J-aaa": [
+        { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+        { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+        { id: "E-eee", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+        { id: "E-fff", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
+        { id: "E-ggg", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
+    ],
+    "J-bbb": [
+        { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "The maze", content: "I'm walking through a maze. It's green and lush I'm certain I'm getting closer to the center. Somewhere in the distance I hear a bear roar." },
+        { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Murder baby", content: "It's coming for me, I know it!" }
+    ]
+}
+
 export default {
-    mounted() {
-        this.journalId = this.$route.params.journalId
-        this.entries = this.allEntries[this.journalId]
+    setup() {
+        const store = useJournalStore()
+
+        return { store }
+    },
+    created() {
+        const journalId = this.$route.params.journalId
+        for (const entry of allEntries[journalId]){
+            // console.log(entry, typeof entry)
+            this.store.addEntry(journalId, entry)
+        }
+        this.journalId = journalId
     },
     data() {
         return {
-            journalId: 0,
+            journalId: "J-UnknownID",
             journalName: "Espanol",
             entries: [],
-            allEntries: {
-                1: [
-                    { id: 1, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                    { id: 2, type: "audio", createdAt: "01/01/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                    { id: 3, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                    { id: 4, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
-                    { id: 5, type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
-                ],
-                2: [
-                    { id: 1, type: "text", createdAt: "01/02/2023, 14:58", title: "The maze", content: "I'm walking through a maze. It's green and lush I'm certain I'm getting closer to the center. Somewhere in the distance I hear a bear roar." },
-                    { id: 2, type: "audio", createdAt: "01/01/2023, 14:58", title: "Murder baby", content: "It's coming for me, I know it!" }
-                ]
-            },
+
             showNewEntryOptions: false,
             showNewEntry: false,
             newEntryType: ""
@@ -61,13 +74,15 @@ export default {
                     </div>
                     <div @click="createNewEntry('audio')"><span
                             class="material-symbols-outlined align-middle pr-2">mic</span>Audio</div>
-                    <div @click="createNewEntry('image')"><span class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
+                    <div @click="createNewEntry('image')"><span
+                            class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
                 </div>
             </div>
         </div>
 
         <NewEntry :new-entry-type="newEntryType" v-if="newEntryType !== ''" @cancel-edit-entry="cancelEditEntry">
         </NewEntry>
-        <EntrySummary v-else v-for="entry in entries" :entry="entry"></EntrySummary>
+        <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
+        <EntrySummary v-else v-for="entry in store.getAllEntries[journalId]" :entry="entry"></EntrySummary>
     </div>
 </template>

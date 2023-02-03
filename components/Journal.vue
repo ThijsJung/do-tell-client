@@ -3,7 +3,7 @@ export default {
     props: {
         journalName: String,
         journalDescription: String,
-        journalId: Number
+        journalId: String
     },
     emits: ['updateJournal'],
     data() {

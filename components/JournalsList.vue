@@ -18,7 +18,7 @@ export default {
             editJournal: false,
             journalName: "",
             journalDescription: "",
-            journalId: 0,
+            journalId: "newJournalId",
             lastJournalId: 0 // To be deleted once the journals are sent to the API which returns an ID.
         }
     },
@@ -27,19 +27,19 @@ export default {
             // TODO: Shouldn't this be on the NewJournal component?
             this.journalName = ""
             this.journalDescription = ""
-            this.journalId = 0
+            this.journalId = "newJournalId"
             this.editJournal = true
         },
-        updateJournal(name: string, description: string, id: number) {
+        updateJournal(name: string, description: string, id: string) {
             this.journalName = name
             this.journalDescription = description
             this.journalId = id
             this.editJournal = true
         },
-        saveJournal(name: string, description: string, id: number) {
-            if (id === 0) {
+        saveJournal(name: string, description: string, id: string) {
+            if (id === "newJournalId") {
                 this.lastJournalId++
-                id = this.lastJournalId
+                id = this.lastJournalId.toString()
             }
             if (name === "") {
                 name = "Untitled journal"
@@ -55,7 +55,7 @@ export default {
             this.store.addJournal(newJournal)
             this.editJournal = false
         },
-        deleteJournal(id: number) {
+        deleteJournal(id: string) {
             this.store.deleteJournal(id)
             this.editJournal = false
         },
