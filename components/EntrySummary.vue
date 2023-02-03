@@ -8,6 +8,15 @@ export default {
     //     return {
     //     }
     // }
+    methods: {
+        truncateContent(content: string) {
+            let truncatedContent = content.slice(0, 80)
+            if (content.length >= 80) {
+                truncatedContent += '...'
+            }
+            return truncatedContent
+        }
+    }
 }
 </script>
 
@@ -24,7 +33,7 @@ export default {
             </div>
         </div>
         <div>
-            {{ entry.content }}
+            {{ truncateContent(entry.content) }}
         </div>
     </article>
 </template>
