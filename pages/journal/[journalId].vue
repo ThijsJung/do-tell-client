@@ -24,7 +24,18 @@ export default {
             },
             showEdit: false,
             showNewEntryOptions: false,
-            showNewEntry: false
+            showNewEntry: false,
+            newEntryType: ""
+        }
+    },
+    methods: {
+        cancelEditEntry() {
+            this.showNewEntry = false
+            this.newEntryType = ""
+        },
+        createNewEntry(newEntryType: string) {
+            this.newEntryType = newEntryType
+            this.showNewEntryOptions = false
         }
     }
 }
@@ -38,7 +49,7 @@ export default {
             </div>
             <div>
                 <div class="cursor-pointer rounded border-white border-2 pl-2">
-                    <span @click="showNewEntry = true" class="pr-2">New<span
+                    <span @click="createNewEntry('text')" class="pr-2">New<span
                             class="material-symbols-outlined align-middle pl-2">draw</span></span>
                     <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1"
                         @click="showNewEntryOptions = !showNewEntryOptions">
@@ -46,16 +57,18 @@ export default {
                     </span>
                 </div>
                 <div v-if="showNewEntryOptions" class="flex-col py-2">
-                    <div><span class="material-symbols-outlined align-middle pr-2"
-                            @click="showNewEntry = true">draw</span>Text
+                    <div @click="createNewEntry('text')"><span
+                            class="material-symbols-outlined align-middle pr-2">draw</span>Text
                     </div>
-                    <div><span class="material-symbols-outlined align-middle pr-2">mic</span>Audio</div>
-                    <div><span class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
+                    <div @click="createNewEntry('audio')"><span
+                            class="material-symbols-outlined align-middle pr-2">mic</span>Audio</div>
+                    <div @click="createNewEntry('image')"><span class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
                 </div>
             </div>
         </div>
 
-        <NewEntry v-if="showNewEntry" @cancel-edit-entry="showNewEntry = false"></NewEntry>
+        <NewEntry :new-entry-type="newEntryType" v-if="newEntryType !== ''" @cancel-edit-entry="cancelEditEntry">
+        </NewEntry>
         <EntrySummary v-else v-for="entry in entries" :entry="entry"></EntrySummary>
     </div>
 </template>

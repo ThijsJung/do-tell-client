@@ -1,29 +1,17 @@
 <script lang="ts">
 export default {
     props: {
-        journalName: String,
-        journalDescription: String,
-        journalId: Number
+        newEntryType: String
     },
-    emits: ['cancelEditEntry'],
-    data() {
-        return {
-            name: this.journalName,
-            description: this.journalDescription,
-            id: this.journalId
-        }
-    }
+    emits: ['cancelEditEntry']
 }
 </script>
 
 <template>
     <div class="flex flex-col px-3 py-2">
-        <div class="flex flex-row">
-            <div class="basis-3/4">
-                <NuxtLink class="underline" to="/">All journals</NuxtLink> > ... > Untitled entry
-            </div>
-        </div>
-        <NewTextEntry></NewTextEntry>
+        <NewTextEntry v-if="newEntryType === 'text'"></NewTextEntry>
+        <NewAudioEntry v-else-if="newEntryType === 'audio'"></NewAudioEntry>
+        <NewImageEntry v-else-if="newEntryType === 'image'"></NewImageEntry>
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
                 @click="$emit('cancelEditEntry')">Cancel</button>
