@@ -3,8 +3,8 @@ import { useJournalStore } from '@/stores/journals'
 
 
 const journals = [
-    { id: "J-aaa", name: "Espanol", description: "Un sitio donde dejar todos mis pensamientos espanoles." },
-    { id: "J-bbb", name: "Dreams", description: "An overview of my subconsciousness, as presented to me during the night time." }
+    { id: "J-8cae", name: "Espanol", description: "Un sitio donde dejar todos mis pensamientos espanoles." },
+    { id: "J-6308", name: "Dreams", description: "An overview of my subconsciousness, as presented to me during the night time." }
 ]
 
 export default {

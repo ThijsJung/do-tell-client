@@ -2,14 +2,14 @@
 import { useJournalStore } from '@/stores/journals'
 
 const allEntries = {
-    "J-aaa": [
+    "J-8cae": [
         { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
         { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
         { id: "E-eee", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
         { id: "E-fff", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" },
         { id: "E-ggg", type: "text", createdAt: "01/02/2023, 14:58", title: "Hoy en dia", content: "No vas a creer lo que me ha pasado hoy... Caminando por la calle un chico me hacia parar para preguntarme" }
     ],
-    "J-bbb": [
+    "J-6308": [
         { id: "E-ccc", type: "text", createdAt: "01/02/2023, 14:58", title: "The maze", content: "I'm walking through a maze. It's green and lush I'm certain I'm getting closer to the center. Somewhere in the distance I hear a bear roar." },
         { id: "E-ddd", type: "audio", createdAt: "01/01/2023, 14:58", title: "Murder baby", content: "It's coming for me, I know it!" }
     ]
@@ -23,7 +23,7 @@ export default {
     },
     created() {
         const journalId = this.$route.params.journalId
-        for (const entry of allEntries[journalId]){
+        for (const entry of allEntries[journalId]) {
             // console.log(entry, typeof entry)
             this.store.addEntry(journalId, entry)
         }
@@ -31,23 +31,32 @@ export default {
     },
     data() {
         return {
-            journalId: "J-UnknownID",
-            journalName: "Espanol",
+            journalId: 'J-UnknownID',
+            journalName: 'Espanol',
             entries: [],
 
             showNewEntryOptions: false,
             showNewEntry: false,
-            newEntryType: ""
+            newEntryType: '',
+
+            selectedEntryId: '',
+            activeComponentView: 'summaries'  // Enum: ['summaries', 'newEntry', 'entry']
         }
     },
     methods: {
         cancelEditEntry() {
-            this.showNewEntry = false
-            this.newEntryType = ""
+            this.activeComponentView = 'summaries'
         },
         createNewEntry(newEntryType: string) {
             this.newEntryType = newEntryType
-            this.showNewEntryOptions = false
+            this.activeComponentView = 'newEntry'
+        },
+        selectEntry(entryId: string) {
+            this.selectedEntryId = entryId
+            this.activeComponentView = 'entry'
+        },
+        closeEntry() {
+            this.activeComponentView = 'summaries'
         }
     }
 }
@@ -80,9 +89,14 @@ export default {
             </div>
         </div>
 
-        <NewEntry :new-entry-type="newEntryType" v-if="newEntryType !== ''" @cancel-edit-entry="cancelEditEntry">
+        <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" @close-entry="closeEntry"></Entry>
+
+        <NewEntry v-else-if="activeComponentView === 'newEntry'" :new-entry-type="newEntryType"
+            @cancel-edit-entry="cancelEditEntry">
         </NewEntry>
         <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
-        <EntrySummary v-else v-for="entry in store.getAllEntries[journalId]" :entry="entry"></EntrySummary>
+        <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
+            :entry="entry" @select-entry="selectEntry">
+        </EntrySummary>
     </div>
 </template>
