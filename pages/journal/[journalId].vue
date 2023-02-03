@@ -22,7 +22,6 @@ export default {
                     { id: 2, type: "audio", createdAt: "01/01/2023, 14:58", title: "Murder baby", content: "It's coming for me, I know it!" }
                 ]
             },
-            showEdit: false,
             showNewEntryOptions: false,
             showNewEntry: false,
             newEntryType: ""
