@@ -1,4 +1,7 @@
 <script lang="ts">
+
+import { epochToDateString } from '@/utils/utils'
+
 export default {
     props: {
         entry: Object,
@@ -18,18 +21,21 @@ export default {
 
 <template>
     <article class="p-1 m-1 flex flex-col" @click="$emit('selectEntry', entry.id)">
-        <div class=" flex justify-between">
-            <div class="text-xl">
-                <span v-if="entry.type == 'audio'" class="material-symbols-outlined align-middle">mic</span>
-                <span v-if="entry.type == 'text'" class="material-symbols-outlined align-middle">draw</span>
-                {{ entry.title }}
-            </div>
-            <div class="text-sm self-end">
-                {{ entry.createdAt }}
-            </div>
+        <div class="text-xl">
+            <span v-if="entry.content.type === 'audio'" class="material-symbols-outlined align-middle">mic</span>
+            <span v-if="entry.content.type === 'text'" class="material-symbols-outlined align-middle">draw</span>
+            {{ entry.title }}
         </div>
-        <div>
-            {{ truncateContent(entry.content) }}
+        <div class="text-xs">
+            {{ epochToDateString(entry.createdAt) }}
+        </div>
+
+        <!-- TODO: Find a nicer way to display different types of summaries -->
+        <div v-if="entry.content.type === 'audio' && 'transcript' in entry.content">
+            {{ truncateContent(entry.content.transcript) }}
+        </div>
+        <div v-else-if="entry.content.type === 'text'">
+            {{ truncateContent(entry.content.text) }}
         </div>
     </article>
 </template>

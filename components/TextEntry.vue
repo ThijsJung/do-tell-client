@@ -1,4 +1,6 @@
 <script lang="ts">
+import { epochToDateString } from '@/utils/utils'
+
 export default {
     props: {
         entry: Object,
@@ -13,7 +15,7 @@ export default {
             {{ entry.title }}
         </div>
         <div class="text-sm" >
-            {{ entry.createdAt }}
+            {{ epochToDateString(entry.createdAt) }}
         </div>
         <div>
             <!-- <p class="py-1" v-for="paragraph in entry.content.transcript.split('\n')">{{ paragraph }}</p> -->
