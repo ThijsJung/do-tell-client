@@ -39,10 +39,12 @@ export default {
         },
         createNewEntry(newEntryType: string) {
             this.newEntryType = newEntryType
+            this.showNewEntryOptions = false
             this.activeComponentView = 'newEntry'
         },
         selectEntry(entryId: string) {
             this.selectedEntryId = entryId
+            this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
         closeEntry() {
