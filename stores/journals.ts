@@ -3,13 +3,16 @@ import { defineStore } from 'pinia'
 export const useJournalStore = defineStore('journal', {
     state: () => ({
         journals: {},
-        entries: {}
+        entries: {},
     }),
     getters: {
         getAllJournals: (state) => state.journals,
         getJournalName: (state) => {
             return (journalId: string) => {
-                const journalName = state.journals[journalId].name 
+                let journalName = ''
+                if (journalId in state.journals){
+                    journalName = state.journals[journalId].name 
+                }
                 return journalName
             }
         },
