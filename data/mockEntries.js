@@ -47,7 +47,6 @@ export const allEntries = {
         {
             "id": "de803a5d-4848-41d3-8b53-a63150a9591d",
             "content": {
-                "audioId": "faf289c3-92fc-4730-ad35-2d353c7166f9",
                 "type": "text",
                 "language": "en_US",
                 "text": "I'm walking through a maze. It's green and lush I'm certain I'm getting closer to the center. Somewhere in the distance I hear a bear roar."
@@ -62,7 +61,6 @@ export const allEntries = {
         {
             "id": "df0e1ce0-2c9a-4790-b983-85aee0ccb42a",
             "content": {
-                "audioId": "faf289c3-92fc-4730-ad35-2d353c7166f9",
                 "type": "text",
                 "language": "en_US",
                 "text": "It's coming for me, I know it!"
