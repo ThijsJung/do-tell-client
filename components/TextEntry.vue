@@ -2,9 +2,16 @@
 import { epochToDateString } from '@/utils/utils'
 
 export default {
+    created() {
+        if (this.checkIfObjectIsEmpty(this.entry)) {
+            this.isEditViewActive = true            
+        }
+    },
     emits: ['updateEntry', 'toggleEditView'],
     props: {
-        entry: Object,
+        entry: {
+            type: Object
+        },
         activateEditView: {
             type: Boolean,
             default: false
@@ -12,13 +19,23 @@ export default {
     },
     data() {
         return {
-            isEditViewActive: this.activateEditView
+            isEditViewActive: this.activateEditView,
+            title: (this.checkIfObjectIsEmpty(this.entry) ) ? '' : this.entry.title,
+            description:  (this.checkIfObjectIsEmpty(this.entry) ) ? '' : this.entry.content.text
         }
     },
     methods: {
         toggleEditView() {
             this.isEditViewActive = !this.isEditViewActive
             this.$emit('toggleEditView', this.isEditViewActive)
+        },
+        checkIfObjectIsEmpty(obj) {
+            // According to: https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+            return (// because Object.keys(new Date()).length === 0;
+                // we have to do some additional check
+                obj // 👈 null and undefined check
+                && Object.keys(obj).length === 0
+                && Object.getPrototypeOf(obj) === Object.prototype)
         }
     }
 }
@@ -31,10 +48,10 @@ export default {
                 <span class="material-symbols-outlined align-middle">draw</span>
             </div>
             <div v-if="!isEditViewActive" class="grow">
-                {{ entry.title }}
+                {{ title }}
             </div>
             <div v-else class="grow">
-                <input v-model="entry.title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
+                <input v-model="title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
                     type="text" placeholder="Untitled entry" autofocus>
             </div>
             <div>
@@ -45,14 +62,14 @@ export default {
             </div>
         </div>
 
-        <div class="text-xs my-1">
+        <div v-if="!isEditViewActive" class="text-xs my-1">
             {{ epochToDateString(entry.createdAt) }}
         </div>
         <div v-if="!isEditViewActive">
-            <p class="py-1" v-for="paragraph in entry.content.text.split('\n')">{{ paragraph }}</p>
+            <p class="py-1" v-for="paragraph in description.split('\n')">{{ paragraph }}</p>
         </div>
         <div v-else>
-            <textarea v-model="entry.content.text" class="w-full h-80 border-none bg-black text-white"
+            <textarea v-model="description" class="w-full h-80 border-none bg-black text-white"
                 placeholder="Do tell..."></textarea>
         </div>
     </article>

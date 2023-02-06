@@ -7,18 +7,15 @@ export default {
 
         return { store }
     },
-    beforeMount() {
-        const selectedEntry = this.store.getEntryById(this.journalId, this.entryId)
-        this.entry = selectedEntry
-    },
     props: {
-        journalId: String,
-        entryId: String,
+        selectedEntry: Object,
+        entryType: String
     },
     emits: ['closeEntry', 'updateEntry', 'deletedEntry', 'savedEntry'],
     data() {
         return {
-            entry: {},
+            entry: this.selectedEntry,
+            type: this.entryType,
             isEditViewActive: false
         }
     },
@@ -42,9 +39,9 @@ export default {
 
 <template>
     <div class="flex flex-col">
-        <TextEntry v-if="entry.content.type === 'text'" :activate-edit-view="isEditViewActive" :entry="entry"
+        <TextEntry v-if="type === 'text'" :activate-edit-view="isEditViewActive" :entry="entry"
             @update-entry="$emit('updateEntry')" @toggle-edit-view="toggleEditView"></TextEntry>
-        <AudioEntry v-else-if="entry.content.type === 'audio'" :entry="entry"></AudioEntry>
+        <AudioEntry v-else-if="type === 'audio'" :entry="entry"></AudioEntry>
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
                 @click="$emit('closeEntry')">Back</button>

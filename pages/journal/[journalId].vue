@@ -18,13 +18,12 @@ export default {
     data() {
         return {
             journalId: '',
+            selectedEntryId: '',
+            selectedEntry: {},
+            selectedEntryType: '',
             entries: [],
 
             showNewEntryOptions: false,
-            showNewEntry: false,
-            newEntryType: '',
-
-            selectedEntryId: '',
             activeComponentView: 'summaries'  // Enum: ['summaries', 'newEntry', 'entry']
         }
     },
@@ -38,12 +37,15 @@ export default {
             this.activeComponentView = 'summaries'
         },
         createNewEntry(newEntryType: string) {
-            this.newEntryType = newEntryType
             this.showNewEntryOptions = false
-            this.activeComponentView = 'newEntry'
+            this.selectedEntryType = newEntryType
+            this.selectedEntry = {}
+            this.activeComponentView = 'entry'
         },
         selectEntry(entryId: string) {
-            this.selectedEntryId = entryId
+            const entry = this.store.getEntryById(this.journalId, entryId)
+            this.selectedEntry = entry
+            this.selectedEntryType = entry.content.type
             this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
@@ -88,8 +90,11 @@ export default {
                 </div>
             </div>
         </div>
+        <!-- <Entry v-if="activeComponentView === 'entry'">
 
-        <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" :journalId="journalId"
+        </Entry> -->
+
+        <Entry v-if="activeComponentView === 'entry'" :selected-entry="selectedEntry" :entry-type="selectedEntryType"
             @update-entry="updateEntry" @close-entry="closeEntry" @deleted-entry="closeEntry" @saved-entry="closeEntry"></Entry>
         <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
         <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
