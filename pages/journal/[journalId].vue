@@ -58,9 +58,10 @@ export default {
     <div class="flex flex-col px-3 py-2">
         <div class="flex flex-row">
             <div class="grow">
-                <NuxtLink class="underline" to="/">All journals</NuxtLink> > <span :class="{underline : !summariesViewIsActive}" @click="closeEntry">{{
-                    store.getJournalName(journalId)
-                }}</span>
+                <NuxtLink class="underline" to="/">All journals</NuxtLink> > <span
+                    :class="{ underline: !summariesViewIsActive }" @click="closeEntry">{{
+                        store.getJournalName(journalId)
+                    }}</span>
             </div>
             <div>
                 <div class="cursor-pointer rounded border-white border-2 pl-2">
@@ -86,8 +87,8 @@ export default {
         <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" :journalId="journalId"
             @close-entry="closeEntry"></Entry>
 
-        <NewEntry v-else-if="activeComponentView === 'newEntry'" :new-entry-type="newEntryType"
-            @cancel-edit-entry="cancelEditEntry">
+        <NewEntry v-else-if="activeComponentView === 'newEntry'" :new-entry-type="newEntryType" :journalId="journalId"
+            @cancel-edit-entry="closeEntry" @saved-entry="closeEntry">
         </NewEntry>
         <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
         <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
