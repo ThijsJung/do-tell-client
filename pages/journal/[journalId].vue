@@ -49,6 +49,11 @@ export default {
         },
         closeEntry() {
             this.activeComponentView = 'summaries'
+        },
+        updateEntry(entryId: string){
+            this.selectedEntryId = entryId
+            this.activeComponentView = 'newEntry'
+
         }
     }
 }
@@ -85,11 +90,7 @@ export default {
         </div>
 
         <Entry v-if="activeComponentView === 'entry'" :entryId="selectedEntryId" :journalId="journalId"
-            @close-entry="closeEntry"></Entry>
-
-        <NewEntry v-else-if="activeComponentView === 'newEntry'" :new-entry-type="newEntryType" :journalId="journalId"
-            @cancel-edit-entry="closeEntry" @saved-entry="closeEntry">
-        </NewEntry>
+            @update-entry="updateEntry" @close-entry="closeEntry" @deleted-entry="closeEntry" @saved-entry="closeEntry"></Entry>
         <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
         <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
             :entry="entry" @select-entry="selectEntry">
