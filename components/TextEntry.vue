@@ -5,10 +5,14 @@ export default {
     emits: ['updateEntry', 'toggleEditView'],
     props: {
         entry: Object,
+        activateEditView: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
-            isEditViewActive: false
+            isEditViewActive: this.activateEditView
         }
     },
     methods: {
@@ -29,8 +33,8 @@ export default {
             <div v-if="!isEditViewActive" class="grow">
                 {{ entry.title }}
             </div>
-            <div v-else>
-                <input v-model="entry.title" class="w-full mb-1 border-none focus:outline-none bg-black text-white"
+            <div v-else class="grow">
+                <input v-model="entry.title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
                     type="text" placeholder="Untitled entry" autofocus>
             </div>
             <div>

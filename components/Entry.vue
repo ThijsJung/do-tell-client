@@ -23,15 +23,15 @@ export default {
         }
     },
     methods: {
-        toggleEditView(){
+        toggleEditView() {
             this.isEditViewActive = !this.isEditViewActive
         },
-        deleteEntry(entryId: string){
+        deleteEntry(entryId: string) {
             console.log('Deleting entry with ID: ', entryId)
             // Logic to delete entry
             this.$emit('deletedEntry')
         },
-        saveEntry(entryId: string, entry){
+        saveEntry(entryId: string, entry) {
             console.log('Saving/Updating entry with ID: ', entryId, entry)
             // Logic to delete entry
             this.$emit('savedEntry')
@@ -42,7 +42,8 @@ export default {
 
 <template>
     <div class="flex flex-col">
-        <TextEntry v-if="entry.content.type === 'text'" :entry="entry" @update-entry="$emit('updateEntry')" @toggle-edit-view="toggleEditView"></TextEntry>
+        <TextEntry v-if="entry.content.type === 'text'" :activate-edit-view="isEditViewActive" :entry="entry"
+            @update-entry="$emit('updateEntry')" @toggle-edit-view="toggleEditView"></TextEntry>
         <AudioEntry v-else-if="entry.content.type === 'audio'" :entry="entry"></AudioEntry>
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
