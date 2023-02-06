@@ -21,21 +21,27 @@ export default {
 
 <template>
     <article class="p-1 m-1 flex flex-col" @click="$emit('selectEntry', entry.id)">
-        <div class="text-xl">
-            <span v-if="entry.content.type === 'audio'" class="material-symbols-outlined align-middle">mic</span>
-            <span v-if="entry.content.type === 'text'" class="material-symbols-outlined align-middle">draw</span>
-            {{ entry.title }}
+        <div class="flex text-xl">
+            <div>
+                <span v-if="entry.content.type === 'audio'" class="material-symbols-outlined align-middle">mic</span>
+                <span v-if="entry.content.type === 'text'" class="material-symbols-outlined align-middle">draw</span>
+            </div>
+            <div class="grow">
+                {{ entry.title }}
+            </div>
         </div>
         <div class="text-xs my-1">
             {{ epochToDateString(entry.createdAt) }}
         </div>
 
         <!-- TODO: Find a nicer way to display different types of summaries -->
-        <div v-if="entry.content.type === 'audio' && 'transcript' in entry.content">
-            {{ truncateContent(entry.content.transcript) }}
-        </div>
-        <div v-else-if="entry.content.type === 'text'">
-            {{ truncateContent(entry.content.text) }}
+        <div class="py-1">
+            <div v-if="entry.content.type === 'audio' && 'transcript' in entry.content">
+                {{ truncateContent(entry.content.transcript) }}
+            </div>
+            <div v-else-if="entry.content.type === 'text'">
+                {{ truncateContent(entry.content.text) }}
+            </div>
         </div>
     </article>
 </template>
