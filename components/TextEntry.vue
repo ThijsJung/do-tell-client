@@ -2,16 +2,18 @@
 import { epochToDateString } from '@/utils/utils'
 
 export default {
-    created() {
-        if (this.checkIfObjectIsEmpty(this.entry)) {
-            this.isEditViewActive = true            
-        }
-    },
     emits: ['updateEntry', 'toggleEditView'],
     props: {
         entry: {
             type: Object
         },
+        // TODO: Seems the better way to go.
+        // entryTitle: {
+        //     type: String
+        // },
+        // entryDescription: {
+        //     type: String
+        // },
         activateEditView: {
             type: Boolean,
             default: false
@@ -20,8 +22,8 @@ export default {
     data() {
         return {
             isEditViewActive: this.activateEditView,
-            title: (this.checkIfObjectIsEmpty(this.entry) ) ? '' : this.entry.title,
-            description:  (this.checkIfObjectIsEmpty(this.entry) ) ? '' : this.entry.content.text
+            title: (this.checkIfObjectIsEmpty(this.entry)) ? '' : this.entry.title,
+            description: (this.checkIfObjectIsEmpty(this.entry)) ? '' : this.entry.content.text
         }
     },
     methods: {
@@ -54,7 +56,7 @@ export default {
                 <input v-model="title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
                     type="text" placeholder="Untitled entry" autofocus>
             </div>
-            <div>
+            <div v-if="!isEditViewActive">
                 <span class="material-symbols-outlined align-middle hover:bg-sky-200 cursor-pointer"
                     @click="toggleEditView">
                     edit

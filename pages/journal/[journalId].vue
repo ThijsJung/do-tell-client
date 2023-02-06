@@ -37,9 +37,9 @@ export default {
             this.activeComponentView = 'summaries'
         },
         createNewEntry(newEntryType: string) {
-            this.showNewEntryOptions = false
             this.selectedEntryType = newEntryType
             this.selectedEntry = {}
+            this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
         selectEntry(entryId: string) {
@@ -90,9 +90,6 @@ export default {
                 </div>
             </div>
         </div>
-        <!-- <Entry v-if="activeComponentView === 'entry'">
-
-        </Entry> -->
 
         <Entry v-if="activeComponentView === 'entry'" :selected-entry="selectedEntry" :entry-type="selectedEntryType"
             @update-entry="updateEntry" @close-entry="closeEntry" @deleted-entry="closeEntry" @saved-entry="closeEntry"></Entry>
