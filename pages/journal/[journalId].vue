@@ -88,9 +88,8 @@ export default {
         <Entry v-if="activeComponentView === 'entry'" :journal-id="journalId" :selected-entry="selectedEntry"
             :entry-type="selectedEntryType" @close-entry="closeEntry" @deleted-entry="closeEntry"
             @saved-entry="closeEntry"></Entry>
-        <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
-        <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
-            :entry="entry" @select-entry="selectEntry">
+        <EntrySummary v-else-if="activeComponentView === 'summaries'"
+            v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry" @select-entry="selectEntry">
         </EntrySummary>
     </div>
 </template>

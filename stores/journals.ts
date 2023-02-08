@@ -18,7 +18,11 @@ export const useJournalStore = defineStore('journal', {
         },
         getAllEntries: (state) => state.entries,
         getAllEntriesByJournalId: (state) => {
-            return (journalId: string) => { state.entries[journalId] }
+            return (journalId: string) => {
+                console.log(`Getting all entries for journal ID: ${journalId}.`)
+                const entries = state.entries[journalId]
+                return entries
+            }
         },
         getEntryById: (state) => {
             return (journalId: string, entryId: string) => { 
