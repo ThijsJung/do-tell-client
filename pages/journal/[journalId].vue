@@ -18,13 +18,12 @@ export default {
     data() {
         return {
             journalId: '',
-            selectedEntryId: '',
             selectedEntry: {},
             selectedEntryType: '',
             entries: [],
 
             showNewEntryOptions: false,
-            activeComponentView: 'summaries'  // Enum: ['summaries', 'newEntry', 'entry']
+            activeComponentView: 'summaries'  // Enum: ['summaries', 'entry']
         }
     },
     computed: {
@@ -38,7 +37,7 @@ export default {
         },
         createNewEntry(newEntryType: string) {
             this.selectedEntryType = newEntryType
-            this.selectedEntry = {}
+            this.selectedEntry = null
             this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
@@ -51,11 +50,6 @@ export default {
         },
         closeEntry() {
             this.activeComponentView = 'summaries'
-        },
-        updateEntry(entryId: string){
-            this.selectedEntryId = entryId
-            this.activeComponentView = 'newEntry'
-
         }
     }
 }
@@ -91,8 +85,9 @@ export default {
             </div>
         </div>
 
-        <Entry v-if="activeComponentView === 'entry'" :selected-entry="selectedEntry" :entry-type="selectedEntryType"
-            @update-entry="updateEntry" @close-entry="closeEntry" @deleted-entry="closeEntry" @saved-entry="closeEntry"></Entry>
+        <Entry v-if="activeComponentView === 'entry'" :journal-id="journalId" :selected-entry="selectedEntry"
+            :entry-type="selectedEntryType" @close-entry="closeEntry" @deleted-entry="closeEntry"
+            @saved-entry="closeEntry"></Entry>
         <!-- <EntrySummary v-else v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry"></EntrySummary> -->
         <EntrySummary v-else-if="activeComponentView === 'summaries'" v-for="entry in store.getAllEntries[journalId]"
             :entry="entry" @select-entry="selectEntry">
