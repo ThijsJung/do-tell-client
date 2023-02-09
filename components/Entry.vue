@@ -8,7 +8,7 @@ export default {
         return { store }
     },
     created() {
-        if (this.isNewEntry(this.selectedEntry)) {
+        if (this.isNewEntry(this.selectedEntry, 'created')) {
             this.isEditViewActive = true
         }
     },
@@ -20,16 +20,24 @@ export default {
     emits: ['closeEntry', 'updateEntry', 'deletedEntry', 'savedEntry'],
     data() {
         return {
-            title: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.title,
-            description: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.content.text,
-            createdAt: this.isNewEntry(this.selectedEntry) ? Math.floor(Date.now() / 1000) : this.selectedEntry.createdAt,
             id: this.isNewEntry(this.selectedEntry) ? 'newEntryId' : this.selectedEntry.id,
+            title: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.title,
+            createdAt: this.isNewEntry(this.selectedEntry) ? Math.floor(Date.now() / 1000) : this.selectedEntry.createdAt,
+            description: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.content.text,
+            transcript: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.content.transcript,
+            content: this.isNewEntry(this.selectedEntry) ? { type: this.entryType } : this.selectedEntry.content,
             isEditViewActive: false,
+        }
+    },
+    computed: {
+        // a computed getter
+        contentType(): string {
+            return this.selectedEntry.content.type
         }
     },
     methods: {
         isNewEntry(entry) {
-            return (entry === null)
+            return (!('id' in entry))
         },
         toggleEditView() {
             this.isEditViewActive = !this.isEditViewActive
@@ -39,18 +47,17 @@ export default {
             this.store.deleteEntry(journalId, entryId)
             this.$emit('deletedEntry')
         },
-        async saveEntry(journalId: string, entryId: string, title: string, description: string, createdAt: number) {
-            if (entryId === 'newEntryId'){
+        updateContent(newContent) {
+            this.content = newContent
+        },
+        async saveEntry(journalId: string, entryId: string, title: string, content: object, createdAt: number) {
+            if (entryId === 'newEntryId') {
                 entryId = await fetch('https://www.uuidtools.com/api/generate/v4').then((response) => response.json()).then((data) => data[0])
                 createdAt = Math.floor(Date.now() / 1000)
             }
             const entry = {
                 "id": entryId,
-                "content": {
-                    type: 'text',
-                    language: 'en_US',
-                    text: description
-                },
+                "content": content,
                 "createdAt": createdAt,
                 "location": {
                     "city": "Amsterdam",
@@ -71,7 +78,8 @@ export default {
         <article class="p-1 m-1 flex flex-col">
             <div class="flex text-xl">
                 <div>
-                    <span class="material-symbols-outlined align-middle">draw</span>
+                    <span v-if="contentType == 'audio'" class="material-symbols-outlined align-middle">mic</span>
+                    <span v-else-if="contentType == 'text'" class="material-symbols-outlined align-middle">draw</span>
                 </div>
                 <div v-if="!isEditViewActive" class="grow">
                     {{ title }}
@@ -91,21 +99,31 @@ export default {
             <div class="text-xs my-1">
                 {{ epochToDateString(createdAt) }}
             </div>
-            <div v-if="!isEditViewActive">
-                <p class="py-1" v-for="paragraph in description.split('\n')">{{ paragraph }}</p>
-            </div>
-            <div v-else>
-                <textarea v-model="description"
-                    class="w-full h-80 border-none bg-black text-white" placeholder="Do tell..."></textarea>
+            <TextContent v-if="contentType === 'text'" :content="content" :is-edit-view-active="isEditViewActive"
+                @updated-content="updateContent"></TextContent>
+            <!-- Audio card view -->
+            <div v-else-if="contentType === 'audio'">
+                <audio class="m-2 justify-center"
+                    src="https://s3.eu-west-1.amazonaws.com/hungarian.phrasebook/tty-diary/thijstest_1657477079.mp3"
+                    controls></audio>
+                <div v-if="!isEditViewActive">
+                    <p v-if="'transcript' in selectedEntry.content" class="py-1"
+                        v-for="paragraph in transcript.split('\n')">{{ paragraph }}</p>
+                </div>
+                <div v-else>
+                    <textarea v-model="transcript" class="w-full h-80 border-none bg-black text-white"
+                        placeholder="Do tell..."></textarea>
+                </div>
             </div>
         </article>
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
                 @click="$emit('closeEntry')">Back</button>
-            <button v-if="isEditViewActive && !isNewEntry(selectedEntry)" class="cursor-pointer rounded border-red-600 border-2 py-1 px-2"
+            <button v-if="isEditViewActive && !isNewEntry(selectedEntry)"
+                class="cursor-pointer rounded border-red-600 border-2 py-1 px-2"
                 @click="deleteEntry(journalId, id)">Delete</button>
             <button v-if="isEditViewActive" class="cursor-pointer rounded border-sky-400 border-2 py-1 px-2"
-                @click="saveEntry(journalId, id, title, description, createdAt)">Save</button>
+                @click="saveEntry(journalId, id, title, content, createdAt)">Save</button>
         </div>
     </div>
 </template>
