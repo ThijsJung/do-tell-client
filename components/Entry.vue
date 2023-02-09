@@ -14,7 +14,6 @@ export default {
     },
     props: {
         selectedEntry: Object,
-        entryType: String,
         journalId: String
     },
     emits: ['closeEntry', 'updateEntry', 'deletedEntry', 'savedEntry'],
@@ -25,7 +24,7 @@ export default {
             createdAt: this.isNewEntry(this.selectedEntry) ? Math.floor(Date.now() / 1000) : this.selectedEntry.createdAt,
             description: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.content.text,
             transcript: this.isNewEntry(this.selectedEntry) ? '' : this.selectedEntry.content.transcript,
-            content: this.isNewEntry(this.selectedEntry) ? { type: this.entryType } : this.selectedEntry.content,
+            content: this.selectedEntry.content,
             isEditViewActive: false,
         }
     },

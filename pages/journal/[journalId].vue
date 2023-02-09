@@ -36,7 +36,6 @@ export default {
             this.activeComponentView = 'summaries'
         },
         createNewEntry(newEntryType: string) {
-            this.selectedEntryType = newEntryType
             this.selectedEntry = {
                 content: {
                     type: newEntryType
@@ -48,7 +47,6 @@ export default {
         selectEntry(entryId: string) {
             const entry = this.store.getEntryById(this.journalId, entryId)
             this.selectedEntry = entry
-            this.selectedEntryType = entry.content.type
             this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
@@ -90,8 +88,7 @@ export default {
         </div>
 
         <Entry v-if="activeComponentView === 'entry'" :journal-id="journalId" :selected-entry="selectedEntry"
-            :entry-type="selectedEntryType" @close-entry="closeEntry" @deleted-entry="closeEntry"
-            @saved-entry="closeEntry"></Entry>
+            @close-entry="closeEntry" @deleted-entry="closeEntry" @saved-entry="closeEntry"></Entry>
         <EntrySummary v-else-if="activeComponentView === 'summaries'"
             v-for="entry in store.getAllEntriesByJournalId(journalId)" :entry="entry" @select-entry="selectEntry">
         </EntrySummary>
