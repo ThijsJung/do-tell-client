@@ -65,7 +65,7 @@ export const allEntries = {
                 "language": "en_US",
                 "text": "It's coming for me, I know it!"
             },
-            "createdAt": 1659383546,
+            "createdAt": 1659042835,
             "location": {
                 "city": "Amsterdam",
                 "country": "The Netherlands"
