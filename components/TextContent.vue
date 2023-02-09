@@ -13,7 +13,7 @@ export default {
     methods: {
         updateContent(event){
             const newContent = {
-                type: this.content.type,
+                type: 'text',
                 language: this.content.language,
                 text: event.target.value
             }
