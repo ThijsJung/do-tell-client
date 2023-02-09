@@ -10,22 +10,23 @@ export const useJournalStore = defineStore('journal', {
         getJournalName: (state) => {
             return (journalId: string) => {
                 let journalName = ''
-                if (journalId in state.journals){
-                    journalName = state.journals[journalId].name 
+                if (journalId in state.journals) {
+                    journalName = state.journals[journalId].name
                 }
                 return journalName
             }
         },
-        getAllEntries: (state) => state.entries,
         getAllEntriesByJournalId: (state) => {
             return (journalId: string) => {
                 console.log(`Getting all entries for journal ID: ${journalId}.`)
                 const entries = state.entries[journalId]
-                return entries
+                const entriesSortedByDate = Object.values(entries)
+                    .sort((a, b) => b.createdAt - a.createdAt)
+                return entriesSortedByDate
             }
         },
         getEntryById: (state) => {
-            return (journalId: string, entryId: string) => { 
+            return (journalId: string, entryId: string) => {
                 console.log(`Getting entry for journal ID: ${journalId}, entry ID: ${entryId}`)
                 const entry = state.entries[journalId][entryId]
                 return entry
