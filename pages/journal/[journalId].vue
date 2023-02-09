@@ -19,8 +19,6 @@ export default {
         return {
             journalId: '',
             selectedEntry: {},
-            selectedEntryType: '',
-            entries: [],
 
             showNewEntryOptions: false,
             activeComponentView: 'summaries'  // Enum: ['summaries', 'entry']
@@ -32,9 +30,6 @@ export default {
         }
     },
     methods: {
-        cancelEditEntry() {
-            this.activeComponentView = 'summaries'
-        },
         createNewEntry(newEntryType: string) {
             this.selectedEntry = {
                 content: {
