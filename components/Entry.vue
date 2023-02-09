@@ -100,20 +100,8 @@ export default {
             </div>
             <TextContent v-if="contentType === 'text'" :content="content" :is-edit-view-active="isEditViewActive"
                 @updated-content="updateContent"></TextContent>
-            <!-- Audio card view -->
-            <div v-else-if="contentType === 'audio'">
-                <audio class="m-2 justify-center"
-                    src="https://s3.eu-west-1.amazonaws.com/hungarian.phrasebook/tty-diary/thijstest_1657477079.mp3"
-                    controls></audio>
-                <div v-if="!isEditViewActive">
-                    <p v-if="'transcript' in selectedEntry.content" class="py-1"
-                        v-for="paragraph in transcript.split('\n')">{{ paragraph }}</p>
-                </div>
-                <div v-else>
-                    <textarea v-model="transcript" class="w-full h-80 border-none bg-black text-white"
-                        placeholder="Do tell..."></textarea>
-                </div>
-            </div>
+            <AudioContent v-else-if="contentType === 'audio'" :content="content" :is-edit-view-active="isEditViewActive"
+                @updated-content="updateContent"></AudioContent>
         </article>
         <div class="flex justify-between pt-2">
             <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
