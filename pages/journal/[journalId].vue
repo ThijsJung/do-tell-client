@@ -37,7 +37,11 @@ export default {
         },
         createNewEntry(newEntryType: string) {
             this.selectedEntryType = newEntryType
-            this.selectedEntry = null
+            this.selectedEntry = {
+                content: {
+                    type: newEntryType
+                }
+            }
             this.showNewEntryOptions = false
             this.activeComponentView = 'entry'
         },
