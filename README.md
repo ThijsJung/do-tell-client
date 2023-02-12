@@ -1,42 +1,17 @@
-# Nuxt 3 Minimal Starter
+# Do Tell Journal client
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This repo contains all frontend code for my journaling application Do Tell.
 
-## Setup
+I'm working towards a first version to test with users. No data will be saved to the backend, everything is kept on the client. The first version should be able to:
+- :white_check_mark: Show, edit and add journals.
+- :white_check_mark: Show text & audio entries.
+- :white_check_mark: Add and edit text entries.
+- :construction: Add audio entries.
+- :construction: Edit audio entries.
 
-Make sure to install the dependencies:
+> :warning: This application is currently actively being worked on. Functionality can change and/or break until the first stable version is released. 
 
-```bash
-# yarn
-yarn install
+You can view and play around with the application [here](https://main.d3kqu2vzx0imp9.amplifyapp.com/journal/J-8cae).
 
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Development
+To set up your own development environment, see [the development documentation](docs/development.md).
