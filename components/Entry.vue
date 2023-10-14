@@ -73,44 +73,41 @@ export default {
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <article class="p-1 m-1 flex flex-col">
+    <div class="flex flex-col justify-between h-full">
+        <article class="p-1 m-1 flex flex-col min-h-[70vh]">
             <div class="flex text-xl">
-                <div>
-                    <span v-if="contentType == 'audio'" class="material-symbols-outlined align-middle">mic</span>
-                    <span v-else-if="contentType == 'text'" class="material-symbols-outlined align-middle">draw</span>
-                </div>
                 <div v-if="!isEditViewActive" class="grow">
                     {{ title }}
                 </div>
                 <div v-else class="grow">
-                    <input v-model="title"
-                        class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl" type="text"
-                        placeholder="Untitled entry" autofocus>
-                </div>
-                <div v-if="!isEditViewActive">
-                    <span class="material-symbols-outlined align-middle hover:bg-sky-200 cursor-pointer"
-                        @click="toggleEditView">
-                        edit
-                    </span>
+                    <input v-model="title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
+                        type="text" placeholder="Untitled entry" autofocus>
                 </div>
             </div>
             <div class="text-xs my-1">
                 {{ epochToDateString(createdAt) }}
             </div>
-            <TextContent v-if="contentType === 'text'" :content="content" :is-edit-view-active="isEditViewActive"
-                @updated-content="updateContent"></TextContent>
-            <AudioContent v-else-if="contentType === 'audio'" :content="content" :is-edit-view-active="isEditViewActive"
-                @updated-content="updateContent"></AudioContent>
+            <div>
+                <TextContent v-if="contentType === 'text'" :content="content" :is-edit-view-active="isEditViewActive"
+                    @updated-content="updateContent"></TextContent>
+                <AudioContent v-else-if="contentType === 'audio'" :content="content" :is-edit-view-active="isEditViewActive"
+                    @updated-content="updateContent"></AudioContent>
+            </div>
         </article>
-        <div class="flex justify-between pt-2">
-            <button class="cursor-pointer rounded border-white border-2 py-1 px-2"
-                @click="$emit('closeEntry')">Back</button>
+        <div v-if="isEditViewActive" class="flex justify-between pt-2 mb-20">
+            <button class="cursor-pointer rounded border-white border-2 py-1 px-2" @click="toggleEditView">
+                Cancel
+            </button>
             <button v-if="isEditViewActive && !isNewEntry(selectedEntry)"
                 class="cursor-pointer rounded border-red-600 border-2 py-1 px-2"
                 @click="deleteEntry(journalId, id)">Delete</button>
             <button v-if="isEditViewActive" class="cursor-pointer rounded border-sky-400 border-2 py-1 px-2"
                 @click="saveEntry(journalId, id, title, content, createdAt)">Save</button>
+        </div>
+        <div v-else class="flex justify-center pt-2">
+            <button class="cursor-pointer rounded border-white border-2 py-1 px-2" @click="toggleEditView">
+                Edit
+            </button>
         </div>
     </div>
 </template>
