@@ -80,8 +80,8 @@ export default {
                     {{ title }}
                 </div>
                 <div v-else class="grow">
-                    <input v-model="title" class="w-full mb-1 border-none focus:outline-none bg-black text-white text-xl"
-                        type="text" placeholder="Untitled entry" autofocus>
+                    <input v-model="title" class="w-full p-0 border-none bg-black text-white text-xl" type="text"
+                        placeholder="Untitled entry">
                 </div>
             </div>
             <div class="text-xs my-1">
