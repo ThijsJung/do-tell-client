@@ -82,7 +82,7 @@ export default {
 <template>
     <div>
         <div v-if="isEditViewActive" class="flex flex-col">
-            <div class="flex m-5">
+            <!-- <div class="flex m-5">
                 <button id="start-button" :class="{ 'bg-red-600': isThisThingOn }"
                     class="mx-2 border-red-600 rounded-full h-20 w-20 border-4" @click="startRecording"><span
                         class="material-symbols-outlined">
@@ -96,7 +96,7 @@ export default {
                         </span></button>
                 </div>
             </div>
-            <div id="audio-player-container"></div>
+            <div id="audio-player-container"></div> -->
             <textarea v-model="transcript" class="w-full h-80 border-none bg-black text-white"
                 placeholder="Do tell..."></textarea>
         </div>
