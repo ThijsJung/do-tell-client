@@ -69,7 +69,7 @@ export default {
 <template>
     <div>
         <div class="flex">
-            <div class="basis-4/5">All journals</div>
+            <div class="flex-grow">All journals</div>
             <div>
                 <button class="cursor-pointer rounded border-white border-2 py-1 px-1" @click="createJournal()">New</button>
             </div>
