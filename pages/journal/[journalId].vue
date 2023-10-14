@@ -62,22 +62,8 @@ export default {
                     }}</span>
             </div>
             <div>
-                <div class="cursor-pointer rounded border-white border-2 pl-2">
-                    <span @click="createNewEntry('text')" class="pr-2">New<span
-                            class="material-symbols-outlined align-middle pl-2">draw</span></span>
-                    <span class="material-symbols-outlined align-middle border-l-2 ml-1 pr-1"
-                        @click="showNewEntryOptions = !showNewEntryOptions">
-                        expand_more
-                    </span>
-                </div>
-                <div v-if="showNewEntryOptions" class="flex-col py-2">
-                    <div @click="createNewEntry('text')"><span
-                            class="material-symbols-outlined align-middle pr-2">draw</span>Text
-                    </div>
-                    <div @click="createNewEntry('audio')"><span
-                            class="material-symbols-outlined align-middle pr-2">mic</span>Audio</div>
-                    <div @click="createNewEntry('image')"><span
-                            class="material-symbols-outlined align-middle pr-2">image</span>Image</div>
+                <div class="cursor-pointer rounded border-white border-2 py-1 px-1">
+                    <span @click="createNewEntry('text')">New</span>
                 </div>
             </div>
         </div>

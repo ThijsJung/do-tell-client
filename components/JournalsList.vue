@@ -68,10 +68,10 @@ export default {
 
 <template>
     <div>
-        <div class="flex flex-row">
+        <div class="flex">
             <div class="basis-4/5">All journals</div>
             <div>
-                <button class="cursor-pointer rounded border-white border-2 px-2" @click="createJournal()">New</button>
+                <button class="cursor-pointer rounded border-white border-2 py-1 px-1" @click="createJournal()">New</button>
             </div>
         </div>
         <NewJournal v-if="editJournal" :journal-name="journalName" :journal-description="journalDescription"

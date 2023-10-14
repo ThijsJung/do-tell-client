@@ -22,12 +22,11 @@ export default {
 <template>
     <article class="p-1 m-1 flex flex-col" @click="$emit('selectEntry', entry.id)">
         <div class="flex text-xl">
-            <div>
-                <span v-if="entry.content.type === 'audio'" class="material-symbols-outlined align-middle">mic</span>
-                <span v-if="entry.content.type === 'text'" class="material-symbols-outlined align-middle">draw</span>
-            </div>
             <div class="grow">
                 {{ entry.title }}
+            </div>
+            <div>
+                <span v-if="entry.content.type === 'audio'" class="material-symbols-outlined align-middle">audio_file</span>
             </div>
         </div>
         <div class="text-xs my-1">

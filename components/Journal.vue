@@ -22,7 +22,7 @@ export default {
             <div class="text-xl grow" @click="$router.push(`/journal/${id}`)">
                 {{ name }}
             </div>
-            <span class="material-symbols-outlined w-8 h-8 hover:bg-sky-200 cursor-pointer"
+            <span class="material-symbols-outlined hover:bg-sky-200 cursor-pointer"
                 @click="$emit('updateJournal', name, description, id)">
                 edit
             </span>
